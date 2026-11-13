@@ -1,4 +1,4 @@
-# Food Delivery Application – Lab 6 & Lab 7
+# Software Engineering – Testing Labs 6 & 7
 
 **Student Name:** Prachi Ganesh Joshi  
 **SRN:** PES1UG24CS325  
@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-This repository contains the implementation and testing work for Lab 6 and Lab 7 using a Python-based Food Delivery Application.
+This repository contains the implementation and testing work for Lab 6 and Lab 7 using Python-based applications.
 
 The two labs focus on different software testing techniques:
 
@@ -25,20 +25,23 @@ The objective of Lab 6 is to analyse the effectiveness of test cases by measurin
 
 The application contains three main functions:
 
-1. `delivery_charge(distance_km, order_value, is_raining)`
-   - Calculates delivery charges based on distance and order value.
-   - Provides free delivery for orders worth ₹500 or more.
-   - Applies additional charges during rainy conditions.
-   - Validates the delivery distance.
+### `delivery_charge(distance_km, order_value, is_raining)`
 
-2. `apply_coupon(order_value, code, is_first_order)`
-   - Applies valid coupon discounts.
-   - Checks coupon validity and first-order eligibility.
-   - Handles orders below the minimum discount threshold.
+- Calculates delivery charges based on distance and order value.
+- Provides free delivery for orders worth ₹500 or more.
+- Applies additional charges during rainy conditions.
+- Validates the delivery distance.
 
-3. `estimated_time(distance_km, is_peak_hour, restaurant_busy)`
-   - Estimates delivery time based on distance.
-   - Adds extra time during peak hours and when the restaurant is busy.
+### `apply_coupon(order_value, code, is_first_order)`
+
+- Applies valid coupon discounts.
+- Checks coupon validity and first-order eligibility.
+- Handles orders below the minimum discount threshold.
+
+### `estimated_time(distance_km, is_peak_hour, restaurant_busy)`
+
+- Estimates delivery time based on distance.
+- Adds extra time during peak hours and when the restaurant is busy.
 
 ## Testing Approach
 
@@ -49,11 +52,12 @@ Two separate test files were created:
 - `CodeCoverageTest_PES1UG24CS325_application.py`
 - `BranchCoverageTest_PES1UG24CS325_application.py`
 
-### Code Coverage
+## Code Coverage
 
 Code coverage measures the percentage of executable statements that are executed by the test cases.
 
 The test suite covers:
+
 - Valid delivery charge calculations.
 - Invalid delivery distances.
 - Coupon application and validation.
@@ -61,7 +65,7 @@ The test suite covers:
 - Delivery time calculations.
 - Peak-hour and restaurant-busy conditions.
 
-### Branch Coverage
+## Branch Coverage
 
 Branch coverage measures whether each possible decision outcome in the application has been executed.
 
@@ -79,7 +83,7 @@ The tests cover both true and false outcomes of conditional statements, includin
 | Total Branches | 24 |
 | Partial Branches | 0 |
 
-Both code coverage and branch coverage achieved **100%**.
+Both code coverage and branch coverage achieved 100%.
 
 ## Commands to Run
 
@@ -113,7 +117,7 @@ py -m pytest BranchCoverageTest_PES1UG24CS325_application.py --cov=food_delivery
 
 ## Objective
 
-The objective of Lab 7 is to test the robustness of the Food Delivery Application using fuzz testing and automatically generated inputs.
+The objective of Lab 7 is to test application robustness using fuzz testing and automatically generated inputs.
 
 Hypothesis is used to generate different input values, including unexpected, invalid, and boundary-case inputs, to identify potential failures.
 
@@ -121,20 +125,24 @@ Hypothesis is used to generate different input values, including unexpected, inv
 
 The application contains three main functions:
 
-1. `parse_order(items_csv)`
-   - Parses comma-separated order items.
-   - Extracts item names and quantities.
-   - Validates the input format and quantities.
+### `parse_order(items_csv)`
 
-2. `delivery_eta(distance_km)`
-   - Calculates estimated delivery time based on distance.
-   - Converts the input into a numeric value.
-   - Validates invalid and out-of-range inputs.
+- Parses comma-separated order items.
+- Extracts item names and quantities.
+- Validates the input format and quantities.
+- Handles malformed order inputs and invalid quantities.
 
-3. `coupon_discount(code)`
-   - Extracts the discount value from a coupon code.
-   - Validates coupon code formatting.
-   - Handles invalid coupon inputs.
+### `delivery_eta(distance_km)`
+
+- Calculates estimated delivery time based on distance.
+- Converts the input into a numeric value.
+- Validates invalid, non-finite, and non-positive distance values.
+
+### `coupon_discount(code)`
+
+- Extracts the discount value from a coupon code.
+- Validates coupon code formatting.
+- Handles invalid coupon inputs.
 
 ## Testing Approach
 
@@ -142,7 +150,7 @@ The Hypothesis library was used along with pytest to perform property-based and 
 
 The test file is:
 
-`test_food_delivery.py`
+- `test_processor.py`
 
 The testing strategy includes:
 
@@ -154,22 +162,33 @@ The testing strategy includes:
 - Testing valid and invalid coupon codes.
 - Checking expected output properties.
 - Testing boundary conditions and malformed inputs.
+- Using parameterized tests for specific invalid inputs.
 
-The application was updated with input validation and appropriate exception handling to prevent unexpected failures when invalid inputs are provided.
+## Bug Identification and Fixing
+
+The initial implementation was tested using automatically generated inputs.
+
+Fuzz testing identified input-handling issues such as:
+
+- Invalid order formats.
+- Missing or malformed quantities.
+- Invalid distance values.
+- Empty or incorrectly formatted coupon codes.
+- Unexpected input types.
+
+The application was then updated with input validation and appropriate exception handling to prevent unexpected failures when invalid inputs are provided.
 
 ## Results
 
-The completed fuzz testing suite contains:
-
 | Metric | Result |
 |---|---:|
-| Total Tests | 32 |
-| Passed | 32 |
+| Total Tests | 27 |
+| Passed | 27 |
 | Failed | 0 |
 | Testing Framework | Pytest |
 | Input Generation | Hypothesis |
 
-All 32 tests passed successfully.
+All 27 tests passed successfully after fixing the identified input-validation issues.
 
 ## Commands to Run
 
@@ -185,21 +204,29 @@ Install dependencies:
 py -m pip install pytest hypothesis
 ```
 
+Run the application:
+
+```bash
+py processor.py
+```
+
 Run the fuzz tests:
 
 ```bash
-py -m pytest test_food_delivery.py -v
+py -m pytest test_processor.py -v
 ```
 
 ---
 
 # Technologies Used
 
-- **Python** – Application implementation.
-- **Pytest** – Automated testing framework.
-- **pytest-cov** – Code and branch coverage measurement.
-- **Hypothesis** – Property-based testing and automatic input generation.
-- **Git & GitHub** – Version control and repository management.
+- **Python:** Application implementation.
+- **Pytest:** Automated testing framework.
+- **pytest-cov:** Code and branch coverage measurement.
+- **Hypothesis:** Property-based testing and automatic input generation.
+- **Git & GitHub:** Version control and repository management.
+
+---
 
 # Repository Structure
 
@@ -217,12 +244,13 @@ L6_L7_20_food_delivery/
 │   └── BranchCoverage_PES1UG24CS325_2.png
 │
 ├── Lab 7/
-│   ├── food_delivery.py
-│   ├── test_food_delivery.py
-│   └── README.md
+│   ├── processor.py
+│   └── test_processor.py
 │
 └── README.md
 ```
+
+---
 
 # Conclusion
 
